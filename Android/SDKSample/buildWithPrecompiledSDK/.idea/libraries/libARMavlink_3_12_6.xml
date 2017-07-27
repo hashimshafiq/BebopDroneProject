@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="libARMavlink-3.12.6">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.android/build-cache/35beed1d49bf67b222f5facc760e29039305a5f7/output/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/35beed1d49bf67b222f5facc760e29039305a5f7/output/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.parrot/libARMavlink/3.12.6/48ef9c5e4157da46c70083e051ecdec1a351a68a/libARMavlink-3.12.6-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

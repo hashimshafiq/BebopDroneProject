@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="libARSAL-3.12.6">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.android/build-cache/80dad86b4327b94fba6f7ff4a0cb5c5b962544a8/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/80dad86b4327b94fba6f7ff4a0cb5c5b962544a8/output/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.parrot/libARSAL/3.12.6/6c7f5b9e6e94e961aece074de9fb9e5cd4f53ff4/libARSAL-3.12.6-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
