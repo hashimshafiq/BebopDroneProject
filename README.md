@@ -13,3 +13,13 @@
 ![UML](https://raw.githubusercontent.com/Parrot-Developers/Samples/master/Android/uml/mobile_uml_classes.png "UML Bebop Drone Sample")
 
 
+### Common Error on Windows regarding opencv & android
+
+App crashed due to __No implementation found for org.opencv.core.Mat.n_Mat()....__ error.
+#### Solution
+ * create folder `jniLibs` in `/app/src/main`
+ * Copy all files from `opencv-sdk/sdk/native/libs` to `jniLibs` folder
+ * Now Error goes
+ 
+ 
+ 
