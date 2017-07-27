@@ -69,6 +69,14 @@ public class BebopVideoView extends TextureView implements TextureView.SurfaceTe
     boolean starter=false;
     ImageView img;
 
+    public boolean flag=false;
+    public int x1,x2;
+    public int y1,y2;
+    public int h1,w1;
+    Point p1=new Point();
+    Point p2=new Point();
+
+
     //////////////////////////////////
 
 
@@ -345,7 +353,19 @@ try {
     Imgproc.cvtColor(img1, img1, Imgproc.COLOR_RGBA2BGRA);
 
 
+    if(flag)
+    {
+       p1.x=x1;
+        p1.y=y1;
+        p2.x=x2;
+        p2.y=y2;
 
+
+
+
+        Imgproc.rectangle(img1,p1,p2,
+                FACE_RECT_COLOR, 3);
+    }
     Utils.matToBitmap(img1, newimg);
     System.out.println("done");
 }

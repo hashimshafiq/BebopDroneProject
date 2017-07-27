@@ -118,6 +118,43 @@ public class BebopActivity extends AppCompatActivity {
         mBebopDrone = new BebopDrone(this, service);
         mBebopDrone.addListener(mBebopListener);
 
+        v1.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                int x = (int) motionEvent.getX();
+                int y = (int) motionEvent.getY();
+
+
+                switch (motionEvent.getAction()) {
+
+                    case MotionEvent.ACTION_DOWN:
+                        mVideoView.flag=false;
+                        mVideoView.x1= (int) motionEvent.getX();
+                        mVideoView.y1= (int) motionEvent.getY();
+                        break;
+
+
+                    case MotionEvent.ACTION_MOVE:
+                        break;
+
+                    case MotionEvent.ACTION_UP:
+                        mVideoView.x2= (int) motionEvent.getX();
+                        mVideoView.y2= (int) motionEvent.getY();
+
+                        mVideoView.h1=mVideoView.y2-mVideoView.y1;
+                        mVideoView.w1=mVideoView.x2-mVideoView.x1;
+                        mVideoView.flag=true;
+
+                        break;
+
+
+                }
+                return true;
+            }
+        });
+
+
+
     }
 
     @Override
