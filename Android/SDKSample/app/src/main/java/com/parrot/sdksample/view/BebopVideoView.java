@@ -23,6 +23,7 @@ package com.parrot.sdksample.view;
 
         import com.parrot.arsdk.arcontroller.ARFrame;
         import com.parrot.sdksample.R;
+        import com.parrot.sdksample.activity.CamShifting;
 
 
         import org.opencv.android.CameraBridgeViewBase;
@@ -33,6 +34,7 @@ package com.parrot.sdksample.view;
         import org.opencv.core.MatOfRect;
         import org.opencv.core.Point;
         import org.opencv.core.Rect;
+        import org.opencv.core.RotatedRect;
         import org.opencv.core.Scalar;
         import org.opencv.core.Size;
         import org.opencv.imgproc.Imgproc;
@@ -73,8 +75,10 @@ public class BebopVideoView extends TextureView implements TextureView.SurfaceTe
     public int x1,x2;
     public int y1,y2;
     public int h1,w1;
-    Point p1=new Point();
-    Point p2=new Point();
+    public Point p1=new Point();
+    public Point p2=new Point();
+    public Rect[] arrayfaces;
+    public Rect Region=new Rect();
 
 
     //////////////////////////////////
@@ -127,6 +131,9 @@ public class BebopVideoView extends TextureView implements TextureView.SurfaceTe
 
     double xCenter = -1;
     double yCenter = -1;
+    CamShifting cm;
+    public boolean flag2;
+    public boolean flag3;
 
 
 
@@ -156,6 +163,8 @@ public class BebopVideoView extends TextureView implements TextureView.SurfaceTe
 
     public void displayFrame(final ByteBuffer spsBuffer, final ByteBuffer ppsBuffer, ARFrame frame) {
         if(!starter) {
+           cm=new CamShifting();
+            arrayfaces=new Rect[1];
 
 
             try {
@@ -351,6 +360,9 @@ try {
   //  Imgproc.Canny(img1, img1, 10, 100, 3, true);
     img1=onCameraFrame();
     Imgproc.cvtColor(img1, img1, Imgproc.COLOR_RGBA2BGRA);
+    int alpha = 1;
+    int beta = 50;
+    img1.convertTo(img1, -1 , alpha, beta);
 
 
     if(flag)
@@ -359,13 +371,33 @@ try {
         p1.y=y1;
         p2.x=x2;
         p2.y=y2;
-
-
-
+        Region=new Rect(p1,p2);
+        arrayfaces[0]=Region;
 
         Imgproc.rectangle(img1,p1,p2,
                 FACE_RECT_COLOR, 3);
+
+
+
+
+
     }
+    if(flag2)
+    {
+        if(flag3) {
+            cm.create_tracked_object(img1, arrayfaces, cm);
+            flag3=false;
+        }
+        RotatedRect face_box=cm.camshift_track_face(img1,arrayfaces,cm);
+        Rect brect = face_box.boundingRect();
+
+
+
+        Imgproc.rectangle(img1,brect.tl(),brect.br(),
+                FACE_RECT_COLOR, 3);
+    }
+
+
     Utils.matToBitmap(img1, newimg);
     System.out.println("done");
 }
@@ -408,13 +440,19 @@ catch(Exception E)
             Log.e(TAG, "Detection method is not selected!");
         }
 
+
+        /*   UNDO
         Rect[] facesArray = faces.toArray();
         for (int i = 0; i < facesArray.length; i++)
         {	Imgproc.rectangle(mRgba, facesArray[i].tl(), facesArray[i].br(),
                 FACE_RECT_COLOR, 3);
             xCenter = (facesArray[i].x + facesArray[i].width + facesArray[i].x) / 2;
             yCenter = (facesArray[i].y + facesArray[i].y + facesArray[i].height) / 2;
-            Point center = new Point(xCenter, yCenter);
+            Point center = new Point(xCenter, yCenter);*/
+
+
+
+
 
           /*  Imgproc.circle(mRgba, center, 10, new Scalar(255, 0, 0, 255), 3);
 
@@ -423,6 +461,8 @@ catch(Exception E)
                     Core.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255,
                             255));*/
 
+
+          /*UNDO
             Rect r = facesArray[i];
             // compute the eye area
             Rect eyearea = new Rect(r.x + r.width / 8,
@@ -436,6 +476,10 @@ catch(Exception E)
                     + (r.width - 2 * r.width / 16) / 2,
                     (int) (r.y + (r.height / 4.5)),
                     (r.width - 2 * r.width / 16) / 2, (int) (r.height / 3.0));
+        */
+
+
+
             // draw the area - mGray is working grayscale mat, if you want to
             // see area in rgb preview, change mGray to mRgba
 
@@ -451,7 +495,7 @@ catch(Exception E)
 
 
 
-
+/*UNDO
             if (learn_frames < 5) {
                 teplateR = get_template(mJavaDetectorEye, eyearea_right, 24);
                 teplateL = get_template(mJavaDetectorEye, eyearea_left, 24);
@@ -463,7 +507,7 @@ catch(Exception E)
                 match_eye(eyearea_left, teplateL, method);
 
             }
-
+*/
 
             // cut eye areas and put them to zoom windows
 
@@ -476,7 +520,8 @@ catch(Exception E)
                     */
 
 
-        }
+        //undo
+        // }
 
         return mRgba;
     }

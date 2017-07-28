@@ -70,6 +70,7 @@ public class BebopActivity extends AppCompatActivity {
     TextView AltitudeLabel;
     private Button mTakeOffLandBt;
     private Button mDownloadBt;
+    public Button Lock;
 
     private int mNbMaxDownload;
     private int mCurrentDownloadIndex;
@@ -109,6 +110,7 @@ public class BebopActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bebop);
         AltitudeLabel= (TextView) findViewById( R.id.textView4);
+        Lock=(Button) findViewById(R.id.button2);
 
         img1=new Mat();
         initIHM();
@@ -153,7 +155,14 @@ public class BebopActivity extends AppCompatActivity {
             }
         });
 
-
+Lock.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+        mVideoView.flag=false;
+        mVideoView.flag2=true;
+        mVideoView.flag3=true;
+    }
+});
 
     }
 
