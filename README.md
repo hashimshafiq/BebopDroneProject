@@ -7,6 +7,10 @@
 
 * Zubair Baqai (SP14-BCS-122)
 
+### Supervised by
+
+   Dr. Mobeen Ghafoor
+
 
 ### How project is organized ?
 
