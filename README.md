@@ -27,5 +27,9 @@ App crashed due to __No implementation found for org.opencv.core.Mat.n_Mat()....
  * Copy all files from `opencv-sdk/sdk/native/libs` to `jniLibs` folder
  * Now Error goes
  
+ ### Features added
+ * Manual Control
+ * Decode and convert video to Mat object
+ 
  
  
