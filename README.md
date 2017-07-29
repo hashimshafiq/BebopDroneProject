@@ -30,6 +30,7 @@ App crashed due to __No implementation found for org.opencv.core.Mat.n_Mat()....
  ### Features added
  * Manual Control
  * Decode and convert video to Mat object
- 
+ * Image/video Enhancement 
+ * Bounding box created
  
  
