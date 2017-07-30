@@ -27,12 +27,6 @@ App crashed due to __No implementation found for org.opencv.core.Mat.n_Mat()....
  * Copy all files from `opencv-sdk/sdk/native/libs` to `jniLibs` folder
  * Now Error goes
  
- ### Features added
- * Manual Control
- * Decode and convert video to Mat object
- * Image/video Enhancement 
- * Bounding box created
- 
  ### Work Progress Till Now
  
  | Features        | Implemented     | Tested          | Comment         |
@@ -40,5 +34,8 @@ App crashed due to __No implementation found for org.opencv.core.Mat.n_Mat()....
  | Manual Control  |  Done           | Yes             |Perfectly working|
  | Getting Stream  |  Done           | Yes             |Perfectly working|
  | H.264 to MAT    |  Done           | Yes             |Perfectly working|
+ | Object Selection|  Done           | Yes             | Working         |
+ | Pattern Learning|  Done           | Yes             |Perfectly Working|
+ | CamShift tracking| Done           | Yes             |Perfectly Working|
  
  
