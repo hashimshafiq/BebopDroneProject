@@ -33,4 +33,7 @@ App crashed due to __No implementation found for org.opencv.core.Mat.n_Mat()....
  * Image/video Enhancement 
  * Bounding box created
  
+ | Features     | Implemented  | Tested       | Comment      |
+ |:------------:|:------------:|:------------:|:------------:|
+ 
  
