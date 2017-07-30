@@ -37,6 +37,8 @@ App crashed due to __No implementation found for org.opencv.core.Mat.n_Mat()....
  
  | Features        | Implemented     | Tested          | Comment         |
  |:---------------:|:---------------:|:---------------:|:---------------:|
- | Manual Control  |  Done           | Done            |Perfectly working|
+ | Manual Control  |  Done           | Yes             |Perfectly working|
+ | Getting Stream  |  Done           | Yes             |Perfectly working|
+ | H.264 to MAT    |  Done           | Yes             |Perfectly working|
  
  
