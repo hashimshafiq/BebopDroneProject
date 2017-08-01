@@ -76,10 +76,18 @@ public class BebopVideoView extends TextureView implements TextureView.SurfaceTe
     public Rect[] arrayfaces;
     public Rect Region=new Rect();
 
-     public int XMovingThreshold =15;
+    public int XMovingThreshold =15;
     public int YMovingThreshold =15;
-   public BebopDrone mBebopDrone;
+    public BebopDrone mBebopDrone;
 
+    //////////////////////////////////
+
+    int width;
+    int rectWidth;
+    Rect left;
+    Rect right;
+    Point pRight;
+    Point pLeft;
 
     //////////////////////////////////
 
@@ -381,8 +389,8 @@ try {
         Region=new Rect(p1,p2);
         arrayfaces[0]=Region;
 
-        Imgproc.rectangle(img1,p1,p2,
-                FACE_RECT_COLOR, 3);
+
+        Imgproc.rectangle(img1,p1,p2, FACE_RECT_COLOR, 3);
 
 
 
@@ -435,6 +443,28 @@ try {
 
            mBebopDrone.setGaz((byte) 0);
        }
+
+        /////////////////////////////Hashim Work///////////////////////
+        width=img1.cols();
+
+        rectWidth=width/3;
+        left =new Rect(0, 0, rectWidth+rectWidth/5, img1.rows());
+        right = new Rect((2*rectWidth - 1)-rectWidth/5, 0, rectWidth+rectWidth/5, img1.rows());
+        pRight = new Point(right.tl().x,right.tl().y);
+        pLeft = new Point(left.br().x,left.br().y);
+
+        if(NewRect.tl().x <= pLeft.x){
+            // banda left par nikal gya
+            mBebopDrone.setYaw((byte) -1);
+
+
+            Statusz = "Motion Detected, Rotating Left";
+        } else if (NewRect.br().x >= pRight.x){
+            // banda right par nikal gya
+            mBebopDrone.setYaw((byte) 1);
+            Statusz = "Motion Detected, Rotating Right";
+        }
+
 
 
 
