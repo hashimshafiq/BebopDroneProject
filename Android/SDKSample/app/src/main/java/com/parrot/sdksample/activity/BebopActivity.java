@@ -51,6 +51,7 @@ import org.opencv.core.Scalar;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.objdetect.CascadeClassifier;
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.nio.ByteBuffer;
@@ -79,6 +80,7 @@ public class BebopActivity extends AppCompatActivity {
     ImageView v1;
     Bitmap m1;
     Mat img1;
+    TextView Status;
     public Bitmap source;
     static {
         if (!OpenCVLoader.initDebug()) {
@@ -119,6 +121,7 @@ public class BebopActivity extends AppCompatActivity {
         ARDiscoveryDeviceService service = intent.getParcelableExtra(DeviceListActivity.EXTRA_DEVICE_SERVICE);
         mBebopDrone = new BebopDrone(this, service);
         mBebopDrone.addListener(mBebopListener);
+        Status=(TextView)findViewById(R.id.textView5);
 
         v1.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -158,9 +161,12 @@ public class BebopActivity extends AppCompatActivity {
 Lock.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View view) {
+
         mVideoView.flag=false;
         mVideoView.flag2=true;
         mVideoView.flag3=true;
+
+        mVideoView.mBebopDrone=mBebopDrone;
     }
 });
 
@@ -230,7 +236,6 @@ Lock.setOnClickListener(new View.OnClickListener() {
                 switch (mBebopDrone.getFlyingState()) {
 
                     case ARCOMMANDS_ARDRONE3_PILOTINGSTATE_FLYINGSTATECHANGED_STATE_LANDED:
-                        System.out.println("THis also");
                         mBebopDrone.takeOff();
                         break;
                     case ARCOMMANDS_ARDRONE3_PILOTINGSTATE_FLYINGSTATECHANGED_STATE_FLYING:
@@ -533,7 +538,6 @@ Lock.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onAltitudeChanged(Double Altitude) {
-                System.out.println("123");
                 AltitudeLabel.setText(String.format("%.2f", Altitude));
             }
 
@@ -562,7 +566,6 @@ Lock.setOnClickListener(new View.OnClickListener() {
 
         @Override
         public void onFrameReceived(ARFrame frame) {
-            System.out.println("Frame recieved");
 
 
             mVideoView.displayFrame(mSpsBuffer,mPpsBuffer,frame);
@@ -590,6 +593,7 @@ try {
    // m1= Bitmap.createBitmap(img1.cols(), img1.rows(), Bitmap.Config.ARGB_8888);
    // Utils.matToBitmap(img1 ,m1);
     v1.setImageBitmap(mVideoView.newimg);
+    Status.setText(mVideoView.Statusz);
 }
 catch(Exception E)
 {

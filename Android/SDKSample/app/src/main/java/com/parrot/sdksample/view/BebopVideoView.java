@@ -3,17 +3,12 @@ package com.parrot.sdksample.view;
 
         import android.content.Context;
         import android.graphics.Bitmap;
-        import android.graphics.Canvas;
-        import android.graphics.Matrix;
         import android.graphics.SurfaceTexture;
         import android.media.MediaCodec;
         import android.media.MediaFormat;
         import android.util.AttributeSet;
-        import android.util.DisplayMetrics;
         import android.util.Log;
         import android.view.MenuItem;
-        import android.view.MotionEvent;
-        import android.view.ScaleGestureDetector;
         import android.view.Surface;
         import android.view.TextureView;
         import android.view.View;
@@ -24,6 +19,7 @@ package com.parrot.sdksample.view;
         import com.parrot.arsdk.arcontroller.ARFrame;
         import com.parrot.sdksample.R;
         import com.parrot.sdksample.activity.CamShifting;
+        import com.parrot.sdksample.drone.BebopDrone;
 
 
         import org.opencv.android.CameraBridgeViewBase;
@@ -80,6 +76,10 @@ public class BebopVideoView extends TextureView implements TextureView.SurfaceTe
     public Rect[] arrayfaces;
     public Rect Region=new Rect();
 
+     public int XMovingThreshold =15;
+    public int YMovingThreshold =15;
+   public BebopDrone mBebopDrone;
+
 
     //////////////////////////////////
 
@@ -127,13 +127,16 @@ public class BebopVideoView extends TextureView implements TextureView.SurfaceTe
 
     private CameraBridgeViewBase mOpenCvCameraView;
     private SeekBar mMethodSeekbar;
-    private TextView mValue;
+    private TextView Status;
 
     double xCenter = -1;
     double yCenter = -1;
     CamShifting cm;
     public boolean flag2;
     public boolean flag3;
+    Rect NewRect;
+    Rect OldRect;
+    public String Statusz="Status:   ";
 
 
 
@@ -146,24 +149,28 @@ public class BebopVideoView extends TextureView implements TextureView.SurfaceTe
 
     public BebopVideoView(Context context) {
         this(context, null);
+        Status =(TextView) findViewById(R.id.textView5) ;
         setSurfaceTextureListener(this);
 
     }
 
     public BebopVideoView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
+        Status =(TextView) findViewById(R.id.textView5) ;
         setSurfaceTextureListener(this);
     }
 
     public BebopVideoView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         setSurfaceTextureListener(this);
+        Status =(TextView) findViewById(R.id.textView5) ;
     }
 
 
     public void displayFrame(final ByteBuffer spsBuffer, final ByteBuffer ppsBuffer, ARFrame frame) {
         if(!starter) {
            cm=new CamShifting();
+
             arrayfaces=new Rect[1];
 
 
@@ -388,18 +395,59 @@ try {
             cm.create_tracked_object(img1, arrayfaces, cm);
             flag3=false;
         }
+
         RotatedRect face_box=cm.camshift_track_face(img1,arrayfaces,cm);
-        Rect brect = face_box.boundingRect();
+        if(OldRect!=null)
+        {
+            OldRect=NewRect;
+        }
+
+
+        NewRect = face_box.boundingRect();
+        if(OldRect==null)
+        {
+         OldRect=NewRect;
+        }
+
+
+        if(Math.abs(NewRect.x-OldRect.x)>=XMovingThreshold)
+        {
+
+           // System.out.println("Status:  X Axis moving");
+        }
+       if((NewRect.y-OldRect.y)>=YMovingThreshold)
+       {
+           System.out.println("Moving Down");
+           mBebopDrone.setGaz((byte) -8);
+           Statusz="Status:    mOving Down";
+
+       }
+       else if((NewRect.y-OldRect.y)<=((YMovingThreshold)*(-1))){
+           System.out.println("Moving UP");
+
+           mBebopDrone.setGaz((byte) 8);
+           Statusz="Status:    mOving UP";
+
+       }
+       else{
+           System.out.println("Stable");
+           Statusz="Status:    Stable";
+
+           mBebopDrone.setGaz((byte) 0);
+       }
 
 
 
-        Imgproc.rectangle(img1,brect.tl(),brect.br(),
+
+
+
+
+        Imgproc.rectangle(img1,NewRect.tl(),NewRect.br(),
                 FACE_RECT_COLOR, 3);
     }
 
 
     Utils.matToBitmap(img1, newimg);
-    System.out.println("done");
 }
 catch(Exception E)
 {

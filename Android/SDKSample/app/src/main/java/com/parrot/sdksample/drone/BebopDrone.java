@@ -500,11 +500,9 @@ public class BebopDrone {
                 ARControllerArgumentDictionary<Object> args = elementDictionary.get(ARControllerDictionary.ARCONTROLLER_DICTIONARY_SINGLE_KEY);
                 if (args != null) {
                    final double altitude = (double)args.get(ARFeatureARDrone3.ARCONTROLLER_DICTIONARY_KEY_ARDRONE3_PILOTINGSTATE_ALTITUDECHANGED_ALTITUDE);
-                    System.out.println("ZUbair");
                     mHandler.post(new Runnable() {
                         @Override
                         public void run() {
-                            System.out.println("Hashim");
                             AltitudeChanged(altitude);
 
                         }
