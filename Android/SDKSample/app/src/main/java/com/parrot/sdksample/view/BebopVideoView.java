@@ -455,13 +455,13 @@ try {
 
         if(NewRect.tl().x <= pLeft.x){
             // banda left par nikal gya
-            mBebopDrone.setYaw((byte) -1);
+            mBebopDrone.setYaw((byte) -8);
 
 
             Statusz = "Motion Detected, Rotating Left";
         } else if (NewRect.br().x >= pRight.x){
             // banda right par nikal gya
-            mBebopDrone.setYaw((byte) 1);
+            mBebopDrone.setYaw((byte) 8);
             Statusz = "Motion Detected, Rotating Right";
         }
 

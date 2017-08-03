@@ -73,7 +73,7 @@ public class BebopActivity extends AppCompatActivity {
     private Button mDownloadBt;
     public Button Lock;
     public boolean toggleAltitude = false;
-    public double requiredAltitude = 3.0;
+    public double requiredAltitude = 1.0;
     private int mNbMaxDownload;
     private int mCurrentDownloadIndex;
     ByteBuffer mSpsBuffer;
@@ -541,10 +541,12 @@ Lock.setOnClickListener(new View.OnClickListener() {
             public void onAltitudeChanged(Double Altitude) {
                 AltitudeLabel.setText(String.format("%.2f", Altitude));
                 if(toggleAltitude){
-                    if(Altitude<requiredAltitude){
-                        mBebopDrone.setGaz((byte) 1);
-                    }else if(Altitude>requiredAltitude){
-                        mBebopDrone.setGaz((byte) -1);
+                    while(Altitude!=requiredAltitude) {
+                        if (Altitude < requiredAltitude) {
+                            mBebopDrone.setGaz((byte) 1);
+                        } else if (Altitude > requiredAltitude) {
+                            mBebopDrone.setGaz((byte) -1);
+                        }
                     }
                 }
             }
