@@ -88,13 +88,14 @@ public class BebopVideoView extends TextureView implements TextureView.SurfaceTe
     Rect right;
     Point pRight;
     Point pLeft;
+    Rect firstTime;
 
     //////////////////////////////////
 
 
 
 
-    private static final Scalar FACE_RECT_COLOR     = new Scalar(0, 255, 0, 255);
+    private static final Scalar RECT_COLOR     = new Scalar(0, 255, 0, 255);
     public static final int        JAVA_DETECTOR       = 0;
     private static final int TM_SQDIFF = 0;
     private static final int TM_SQDIFF_NORMED = 1;
@@ -390,7 +391,7 @@ try {
         arrayfaces[0]=Region;
 
 
-        Imgproc.rectangle(img1,p1,p2, FACE_RECT_COLOR, 3);
+        Imgproc.rectangle(img1,p1,p2, RECT_COLOR, 3);
 
 
 
@@ -400,6 +401,7 @@ try {
     if(flag2)
     {
         if(flag3) {
+            System.out.println("Hashim");
             cm.create_tracked_object(img1, arrayfaces, cm);
             flag3=false;
         }
@@ -412,17 +414,14 @@ try {
 
 
         NewRect = face_box.boundingRect();
-        if(OldRect==null)
-        {
-         OldRect=NewRect;
+
+        if(OldRect==null) {
+            OldRect=NewRect;
+            firstTime = NewRect;
         }
 
 
-        if(Math.abs(NewRect.x-OldRect.x)>=XMovingThreshold)
-        {
 
-           // System.out.println("Status:  X Axis moving");
-        }
        if((NewRect.y-OldRect.y)>=YMovingThreshold)
        {
            System.out.println("Moving Down");
@@ -448,8 +447,17 @@ try {
         width=img1.cols();
 
         rectWidth=width/3;
+
         left =new Rect(0, 0, rectWidth+rectWidth/5, img1.rows());
         right = new Rect((2*rectWidth - 1)-rectWidth/5, 0, rectWidth+rectWidth/5, img1.rows());
+
+
+
+
+        // left right rectangles displayed on mobile screen for debugging purpose
+        Imgproc.rectangle(img1,left.tl(),left.br(), RECT_COLOR, 3);
+        Imgproc.rectangle(img1,right.tl(),right.br(), RECT_COLOR, 3);
+
         pRight = new Point(right.tl().x,right.tl().y);
         pLeft = new Point(left.br().x,left.br().y);
 
@@ -466,14 +474,32 @@ try {
         }
 
 
+        if(NewRect.height>firstTime.height+5){
+            // banda qareeb ata ja raha hai
+            // drone have to move backword
+            mBebopDrone.setPitch((byte) -8);
+            mBebopDrone.setFlag((byte) 1);
+            Statusz = "Motion Detected, Moving Backword";
+
+        }else if(NewRect.height<firstTime.height-5){
+            // banda door jata ja raha hai
+            // drone have to move forward
+            mBebopDrone.setPitch((byte) 8);
+            mBebopDrone.setFlag((byte) 1);
+            Statusz = "Motion Detected, Moving Forward";
+
+        }else{
+            mBebopDrone.setFlag((byte) 0);
+        }
 
 
 
 
 
 
-        Imgproc.rectangle(img1,NewRect.tl(),NewRect.br(),
-                FACE_RECT_COLOR, 3);
+
+
+        Imgproc.rectangle(img1,NewRect.tl(),NewRect.br(), RECT_COLOR, 3);
     }
 
 
