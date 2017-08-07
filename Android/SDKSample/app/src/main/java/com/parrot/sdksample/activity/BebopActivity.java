@@ -72,8 +72,8 @@ public class BebopActivity extends AppCompatActivity {
     private Button mTakeOffLandBt;
     private Button mDownloadBt;
     public Button Lock;
-    public boolean toggleAltitude = false;
-    public double requiredAltitude = 1.9;
+    public boolean toggleAltitude = true;
+    public double requiredAltitude = 1.5;
     public double altitudeRangeFactor = 0.2;
     private int mNbMaxDownload;
     private int mCurrentDownloadIndex;
@@ -539,6 +539,7 @@ Lock.setOnClickListener(new View.OnClickListener() {
                     mTakeOffLandBt.setText("Land");
                     mTakeOffLandBt.setEnabled(true);
                     mDownloadBt.setEnabled(false);
+                    toggleAltitude = false;
                     break;
                 default:
                     mTakeOffLandBt.setEnabled(false);
