@@ -38,6 +38,6 @@ App crashed due to __No implementation found for org.opencv.core.Mat.n_Mat()....
  | Pattern Learning|  Done           | Yes             |Perfectly Working|
  | CamShift tracking| Done           | Yes             |Perfectly Working|
  | Autonomous CMD   | Working...     | No              | issue in algo   |
- | Altitude Maint.  | Done           | Yes             | Not perfect     |
+ | Altitude Maint.  | Done           | Yes             |Perfectly working|
  
  
