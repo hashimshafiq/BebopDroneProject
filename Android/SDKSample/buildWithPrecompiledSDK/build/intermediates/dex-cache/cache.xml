@@ -19,5 +19,14 @@
         sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
         <dex dex="D:\Samples\Android\SDKSample\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_f35a9893ab60edde34bac063f70fbf8a903e77d4\classes.dex" />
     </item>
+    <item
+        is-multidex="true"
+        jar="D:\Samples\Android\SDKSample\app\libs\aruco.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="94c23b1a3e9667188741af131058ae7a3ef27a15">
+        <dex dex="D:\Samples\Android\SDKSample\app\build\intermediates\transforms\dex\debug\folders\1000\2\aruco_a92598e07234e0b1987f8d66c42c1aff8e733ff6\classes.dex" />
+    </item>
 
 </items>
