@@ -34,10 +34,11 @@ App crashed due to __No implementation found for org.opencv.core.Mat.n_Mat()....
  | Manual Control  |  Done           | Yes             |Perfectly working|
  | Getting Stream  |  Done           | Yes             |Perfectly working|
  | H.264 to MAT    |  Done           | Yes             |Perfectly working|
- | Object Selection|  Done           | Yes             | Working         |
+ | Object Select/Lock|  Done         | Yes             |Perfectly working|
  | Pattern Learning|  Done           | Yes             |Perfectly Working|
  | CamShift tracking| Done           | Yes             |Perfectly Working|
  |Autonomous Rotation|Done           | Yes             |Perfectly Working|
+ |Autonomous Movement|Done           | No              |   No Comment    |
  | Altitude Maint.  | Done           | Yes             |Perfectly working|
  
  
