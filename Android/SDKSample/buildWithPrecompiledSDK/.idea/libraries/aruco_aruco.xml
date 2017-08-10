@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="aruco.aruco">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/aruco/aruco.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
