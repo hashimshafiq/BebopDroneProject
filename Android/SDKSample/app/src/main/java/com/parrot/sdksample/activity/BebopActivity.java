@@ -55,7 +55,11 @@ import org.w3c.dom.Text;
 
 import java.io.File;
 import java.nio.ByteBuffer;
+import java.util.Vector;
 
+import es.ava.aruco.CameraParameters;
+import es.ava.aruco.Marker;
+import es.ava.aruco.MarkerDetector;
 
 
 public class BebopActivity extends AppCompatActivity {
@@ -70,7 +74,7 @@ public class BebopActivity extends AppCompatActivity {
 
     private TextView mBatteryLabel;
     TextView AltitudeLabel;
-    private Button mTakeOffLandBt;
+    public Button mTakeOffLandBt;
     private Button mDownloadBt;
     public Button Lock;
     public boolean toggleAltitude = true;
@@ -85,6 +89,10 @@ public class BebopActivity extends AppCompatActivity {
     Mat img1;
     TextView Status;
     public Bitmap source;
+
+
+
+
     static {
         if (!OpenCVLoader.initDebug()) {
             // Handle initialization error
@@ -704,5 +712,6 @@ catch(Exception E)
 
 
     };
+
 
 }

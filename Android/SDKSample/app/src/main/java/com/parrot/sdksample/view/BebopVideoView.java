@@ -15,9 +15,12 @@ package com.parrot.sdksample.view;
         import android.widget.ImageView;
         import android.widget.SeekBar;
         import android.widget.TextView;
+        import android.widget.Toast;
+
 
         import com.parrot.arsdk.arcontroller.ARFrame;
         import com.parrot.sdksample.R;
+        import com.parrot.sdksample.activity.BebopActivity;
         import com.parrot.sdksample.activity.CamShifting;
         import com.parrot.sdksample.drone.BebopDrone;
 
@@ -42,8 +45,15 @@ package com.parrot.sdksample.view;
         import java.io.IOException;
         import java.io.InputStream;
         import java.nio.ByteBuffer;
+        import java.util.ArrayList;
+        import java.util.Vector;
+
+        import es.ava.aruco.CameraParameters;
+        import es.ava.aruco.Marker;
+        import es.ava.aruco.MarkerDetector;
 
         import static android.content.ContentValues.TAG;
+        import static com.parrot.arsdk.arcommands.ARCOMMANDS_ARDRONE3_PILOTINGSTATE_FLYINGSTATECHANGED_STATE_ENUM.ARCOMMANDS_ARDRONE3_PILOTINGSTATE_FLYINGSTATECHANGED_STATE_LANDED;
 
 
 public class BebopVideoView extends TextureView implements TextureView.SurfaceTextureListener {
@@ -146,6 +156,14 @@ public class BebopVideoView extends TextureView implements TextureView.SurfaceTe
     Rect NewRect;
     Rect OldRect;
     public String Statusz="Status:   ";
+
+    //////////// aruco settings/////////
+    public boolean toggleAruco = true;
+    MarkerDetector MDetector;
+    Vector<Marker> Markers=new Vector<Marker>();
+    CameraParameters CamParam;
+    Point ptc1;
+    Point ptc2;
 
 
 
@@ -379,7 +397,31 @@ try {
     int alpha = 1;
     int beta = 50;
     img1.convertTo(img1, -1 , alpha, beta);
+    Utils.matToBitmap(img1, newimg);
 
+    if(toggleAruco){
+        Log.i("toggleAruco","innside if");
+        MDetector.detect(img1,Markers,CamParam,(float)0.1,img1);
+        for(int i=0;i<Markers.size();i++){
+            Log.i("toggleAruco","innside for loop");
+            if(Markers.get(i).getMarkerId()==1){
+                //land
+                // TODO: Get flying state and then act accordingly
+                mBebopDrone.land();
+                Log.i("toggleAruco","innside landing");
+
+            }else if(Markers.get(i).getMarkerId()==50){
+                //takeoff
+                // TODO: Get flying state and then act accordingly
+                mBebopDrone.takeOff();
+                Log.i("toggleAruco","innside takeoff");
+            }
+
+        }
+
+
+
+    }
 
     if(flag)
     {
@@ -503,7 +545,8 @@ try {
     }
 
 
-    Utils.matToBitmap(img1, newimg);
+    //Utils.matToBitmap(img1, newimg);
+
 }
 catch(Exception E)
 {
