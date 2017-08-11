@@ -40,5 +40,6 @@ App crashed due to __No implementation found for org.opencv.core.Mat.n_Mat()....
  |Autonomous Rotation|Done           | Yes             |Perfectly Working|
  |Autonomous Movement|Done           | No              |   No Comment    |
  | Altitude Maint.  | Done           | Yes             |Perfectly working|
+ | Aruco Markers    | Done           | No              |No Comment       |
  
  
