@@ -29,5 +29,4 @@ dependencies {
         compile 'com.parrot:arsdk:3.12.6'
     }
     compile project(path: ':openCVLibrary320')
-    compile files('libs/aruco.jar')
 }

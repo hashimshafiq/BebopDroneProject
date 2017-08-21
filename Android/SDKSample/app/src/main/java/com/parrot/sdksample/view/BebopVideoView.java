@@ -6,6 +6,7 @@ package com.parrot.sdksample.view;
         import android.graphics.SurfaceTexture;
         import android.media.MediaCodec;
         import android.media.MediaFormat;
+        import android.os.Environment;
         import android.util.AttributeSet;
         import android.util.Log;
         import android.view.MenuItem;
@@ -156,12 +157,14 @@ public class BebopVideoView extends TextureView implements TextureView.SurfaceTe
     Rect NewRect;
     Rect OldRect;
     public String Statusz="Status:   ";
+    int count=0;
+    RotatedRect face_box;
 
     //////////// aruco settings/////////
-    public boolean toggleAruco = true;
+    public boolean toggleAruco = false;
     MarkerDetector MDetector;
     Vector<Marker> Markers=new Vector<Marker>();
-    CameraParameters CamParam;
+    public CameraParameters CamParam;
     Point ptc1;
     Point ptc2;
 
@@ -250,7 +253,10 @@ public class BebopVideoView extends TextureView implements TextureView.SurfaceTe
                 Log.e(TAG, "Failed to load cascade. Exception thrown: " + e);
             }
 
+           CamParam = new CameraParameters();
 
+            System.out.println(Environment.getExternalStorageDirectory().toString() + "/camera.yaml");
+           CamParam.readFromFile(Environment.getExternalStorageDirectory().toString() + "/camera.yaml");
 
             thread = new threading();
             thread.start();
@@ -397,13 +403,17 @@ try {
     int alpha = 1;
     int beta = 50;
     img1.convertTo(img1, -1 , alpha, beta);
-    Utils.matToBitmap(img1, newimg);
+
 
     if(toggleAruco){
         Log.i("toggleAruco","innside if");
-        MDetector.detect(img1,Markers,CamParam,(float)0.1,img1);
+
+        MDetector.detect(img1,Markers,CamParam,(float)0.1);
+
+        System.out.println("Size Of    :"+Markers.size());
         for(int i=0;i<Markers.size();i++){
             Log.i("toggleAruco","innside for loop");
+            System.out.println("Marker Value:   "+Markers.get(i).getMarkerId());
             if(Markers.get(i).getMarkerId()==1){
                 //land
                 // TODO: Get flying state and then act accordingly
@@ -448,19 +458,26 @@ try {
             flag3=false;
         }
 
-        RotatedRect face_box=cm.camshift_track_face(img1,arrayfaces,cm);
+        while(count<=100) {
+             face_box = cm.camshift_track_face(img1, arrayfaces, cm);
+            System.out.println("Area: "+face_box.size);
+            count++;
+        }
+        face_box = cm.camshift_track_face(img1, arrayfaces, cm);
         if(OldRect!=null)
         {
             OldRect=NewRect;
         }
 
 
-        NewRect = face_box.boundingRect();
+            NewRect = face_box.boundingRect();
 
         if(OldRect==null) {
             OldRect=NewRect;
             firstTime = NewRect;
         }
+        System.out.println("Set FirstTime box Size   Height:   "+ firstTime.height+ "    Weidth:   "+ firstTime.width);
+        System.out.println("Set NewRect box Size   Height:   "+ NewRect.height+ "    Weidth:   "+ NewRect.width);
 
 
 
@@ -516,14 +533,14 @@ try {
         }
 
 
-        if(NewRect.height>firstTime.height+5){
+        if(NewRect.height>firstTime.height+10){
             // banda qareeb ata ja raha hai
             // drone have to move backword
             mBebopDrone.setPitch((byte) -8);
             mBebopDrone.setFlag((byte) 1);
             Statusz = "Motion Detected, Moving Backword";
 
-        }else if(NewRect.height<firstTime.height-5){
+        }else if(NewRect.height<firstTime.height-10){
             // banda door jata ja raha hai
             // drone have to move forward
             mBebopDrone.setPitch((byte) 8);
@@ -532,6 +549,8 @@ try {
 
         }else{
             mBebopDrone.setFlag((byte) 0);
+            mBebopDrone.setPitch((byte) 0);
+            Statusz = "Stable";
         }
 
 
@@ -545,7 +564,7 @@ try {
     }
 
 
-    //Utils.matToBitmap(img1, newimg);
+    Utils.matToBitmap(img1, newimg);
 
 }
 catch(Exception E)

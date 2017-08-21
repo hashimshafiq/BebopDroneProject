@@ -17,6 +17,8 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+
 import com.parrot.arsdk.arcommands.ARCOMMANDS_ARDRONE3_MEDIARECORDEVENT_PICTUREEVENTCHANGED_ERROR_ENUM;
 import com.parrot.arsdk.arcommands.ARCOMMANDS_ARDRONE3_PILOTINGSTATE_FLYINGSTATECHANGED_STATE_ENUM;
 import com.parrot.arsdk.arcontroller.ARCONTROLLER_DEVICE_STATE_ENUM;
@@ -77,7 +79,7 @@ public class BebopActivity extends AppCompatActivity {
     public Button mTakeOffLandBt;
     private Button mDownloadBt;
     public Button Lock;
-    public boolean toggleAltitude = true;
+    public boolean toggleAltitude = false;
     public double requiredAltitude = 1.5;
     public double altitudeRangeFactor = 0.2;
     private int mNbMaxDownload;
