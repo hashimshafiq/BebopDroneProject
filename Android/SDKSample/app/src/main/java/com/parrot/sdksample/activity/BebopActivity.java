@@ -80,8 +80,9 @@ public class BebopActivity extends AppCompatActivity {
     private Button mDownloadBt;
     public Button Lock;
     public boolean toggleAltitude = false;
-    public double requiredAltitude = 1.5;
-    public double altitudeRangeFactor = 0.2;
+    public double droneAltitude =0;
+    //public double requiredAltitude = 1.5;
+    //public double altitudeRangeFactor = 0.2;
     private int mNbMaxDownload;
     private int mCurrentDownloadIndex;
     ByteBuffer mSpsBuffer;
@@ -517,14 +518,7 @@ Lock.setOnClickListener(new View.OnClickListener() {
                 ARControllerArgumentDictionary<Object> args = elementDictionary.get(ARControllerDictionary.ARCONTROLLER_DICTIONARY_SINGLE_KEY);
                 if (args != null) {
                     double altitude = (double)args.get(ARFeatureARDrone3.ARCONTROLLER_DICTIONARY_KEY_ARDRONE3_PILOTINGSTATE_ALTITUDECHANGED_ALTITUDE);
-                    if(toggleAltitude){
-                        if (altitude < requiredAltitude-altitudeRangeFactor) {
-                            mBebopDrone.setGaz((byte) 1);
-                        } else if (altitude > requiredAltitude+requiredAltitude) {
-                            mBebopDrone.setGaz((byte) -1);
-                        }
-
-                    }
+                    droneAltitude = altitude;
                 }
             }
         }

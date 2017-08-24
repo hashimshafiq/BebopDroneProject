@@ -87,8 +87,7 @@ public class BebopVideoView extends TextureView implements TextureView.SurfaceTe
     public Rect[] arrayfaces;
     public Rect Region=new Rect();
 
-    public int XMovingThreshold =15;
-    public int YMovingThreshold =15;
+
     public BebopDrone mBebopDrone;
 
     //////////////////////////////////
@@ -102,6 +101,11 @@ public class BebopVideoView extends TextureView implements TextureView.SurfaceTe
     Rect firstTime;
 
     //////////////////////////////////
+    ////////////Altitude Settings//////////
+    public boolean toggleAltitude = false;
+    public double requiredAltitude = 1.9;
+    public double altitudeRangeFactor = 0.2;
+    /////////////////////////////////////
 
 
 
@@ -406,30 +410,32 @@ try {
 
 
     if(toggleAruco){
-        Log.i("toggleAruco","innside if");
-
         MDetector.detect(img1,Markers,CamParam,(float)0.1);
-
-        System.out.println("Size Of    :"+Markers.size());
         for(int i=0;i<Markers.size();i++){
-            Log.i("toggleAruco","innside for loop");
-            System.out.println("Marker Value:   "+Markers.get(i).getMarkerId());
             if(Markers.get(i).getMarkerId()==1){
                 //land
                 // TODO: Get flying state and then act accordingly
                 mBebopDrone.land();
-                Log.i("toggleAruco","innside landing");
-
             }else if(Markers.get(i).getMarkerId()==50){
                 //takeoff
                 // TODO: Get flying state and then act accordingly
                 mBebopDrone.takeOff();
-                Log.i("toggleAruco","innside takeoff");
             }
 
         }
 
 
+
+    }
+
+    if(toggleAltitude){
+        if (mBebopDrone.Altitude < requiredAltitude-altitudeRangeFactor) {
+            mBebopDrone.setGaz((byte) 1);
+        } else if (mBebopDrone.Altitude > requiredAltitude+requiredAltitude) {
+            mBebopDrone.setGaz((byte) -1);
+        }else{
+            mBebopDrone.setGaz((byte) 0);
+        }
 
     }
 
@@ -453,14 +459,14 @@ try {
     if(flag2)
     {
         if(flag3) {
-            System.out.println("Hashim");
             cm.create_tracked_object(img1, arrayfaces, cm);
             flag3=false;
         }
 
         while(count<=100) {
-             face_box = cm.camshift_track_face(img1, arrayfaces, cm);
-            System.out.println("Area: "+face_box.size);
+            face_box = cm.camshift_track_face(img1, arrayfaces, cm);
+            
+
             count++;
         }
         face_box = cm.camshift_track_face(img1, arrayfaces, cm);
@@ -469,40 +475,14 @@ try {
             OldRect=NewRect;
         }
 
-
-            NewRect = face_box.boundingRect();
+        NewRect = face_box.boundingRect();
 
         if(OldRect==null) {
             OldRect=NewRect;
             firstTime = NewRect;
         }
-        System.out.println("Set FirstTime box Size   Height:   "+ firstTime.height+ "    Weidth:   "+ firstTime.width);
-        System.out.println("Set NewRect box Size   Height:   "+ NewRect.height+ "    Weidth:   "+ NewRect.width);
 
-
-
-       if((NewRect.y-OldRect.y)>=YMovingThreshold)
-       {
-           System.out.println("Moving Down");
-           mBebopDrone.setGaz((byte) -8);
-           Statusz="Status:    mOving Down";
-
-       }
-       else if((NewRect.y-OldRect.y)<=((YMovingThreshold)*(-1))){
-           System.out.println("Moving UP");
-
-           mBebopDrone.setGaz((byte) 8);
-           Statusz="Status:    mOving UP";
-
-       }
-       else{
-           System.out.println("Stable");
-           Statusz="Status:    Stable";
-
-           mBebopDrone.setGaz((byte) 0);
-       }
-
-        /////////////////////////////Hashim Work///////////////////////
+        //////////// Rotation Code ////////////////////
         width=img1.cols();
 
         rectWidth=width/3;
@@ -522,28 +502,31 @@ try {
 
         if(NewRect.tl().x <= pLeft.x){
             // banda left par nikal gya
-            mBebopDrone.setYaw((byte) -8);
+            mBebopDrone.setYaw((byte) -15);
 
 
             Statusz = "Motion Detected, Rotating Left";
         } else if (NewRect.br().x >= pRight.x){
             // banda right par nikal gya
-            mBebopDrone.setYaw((byte) 8);
+            mBebopDrone.setYaw((byte) 15);
             Statusz = "Motion Detected, Rotating Right";
+        }else{
+            mBebopDrone.setYaw((byte) 0);
+            Statusz = "Stable";
         }
 
 
         if(NewRect.height>firstTime.height+10){
             // banda qareeb ata ja raha hai
             // drone have to move backword
-            mBebopDrone.setPitch((byte) -8);
+            mBebopDrone.setPitch((byte) -15);
             mBebopDrone.setFlag((byte) 1);
             Statusz = "Motion Detected, Moving Backword";
 
         }else if(NewRect.height<firstTime.height-10){
             // banda door jata ja raha hai
             // drone have to move forward
-            mBebopDrone.setPitch((byte) 8);
+            mBebopDrone.setPitch((byte) 15);
             mBebopDrone.setFlag((byte) 1);
             Statusz = "Motion Detected, Moving Forward";
 
@@ -552,6 +535,7 @@ try {
             mBebopDrone.setPitch((byte) 0);
             Statusz = "Stable";
         }
+
 
 
 
