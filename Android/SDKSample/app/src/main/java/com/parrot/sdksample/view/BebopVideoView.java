@@ -465,7 +465,7 @@ try {
 
         while(count<=100) {
             face_box = cm.camshift_track_face(img1, arrayfaces, cm);
-            
+
 
             count++;
         }
