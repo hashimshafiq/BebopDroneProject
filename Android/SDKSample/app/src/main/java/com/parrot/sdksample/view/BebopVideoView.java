@@ -485,13 +485,15 @@ try {
                 face_box = cm.camshift_track_face(img1, arrayfaces, cm);
                 avgHeight += face_box.boundingRect().height;
                 calibrationFrame++;
+
             }
             if(calibrationFrame==calibrationFrames){
                 avgHeight /= calibrationFrames;
+                calibrationDone = true;
             }
 
         }
-        
+
         face_box = cm.camshift_track_face(img1, arrayfaces, cm);
         if(OldRect!=null)
         {
