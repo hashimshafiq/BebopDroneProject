@@ -172,6 +172,15 @@ public class BebopVideoView extends TextureView implements TextureView.SurfaceTe
     Point ptc1;
     Point ptc2;
 
+    /////////////////////////////////
+    //////// Calibration Settings/////
+    public boolean calibrationDone = false;
+    public int calibrationFrames = 90;
+    public int calibrationFrame = 0;
+    public int avgHeight = 0;
+
+
+
 
 
 
@@ -456,19 +465,33 @@ try {
 
 
     }
-    if(flag2)
-    {
-        if(flag3) {
+    if(flag2) {
+        if (flag3) {
             cm.create_tracked_object(img1, arrayfaces, cm);
-            flag3=false;
+            flag3 = false;
         }
 
-        while(count<=100) {
-            face_box = cm.camshift_track_face(img1, arrayfaces, cm);
+        //calibrations process
+        if (!calibrationDone){
 
 
-            count++;
+            while (count <= 100) {
+                face_box = cm.camshift_track_face(img1, arrayfaces, cm);
+                count++;
+            }
+            while(calibrationFrame<calibrationFrames) {
+
+                Statusz = "Calibration in Progress... "+calibrationFrame;
+                face_box = cm.camshift_track_face(img1, arrayfaces, cm);
+                avgHeight += face_box.boundingRect().height;
+                calibrationFrame++;
+            }
+            if(calibrationFrame==calibrationFrames){
+                avgHeight /= calibrationFrames;
+            }
+
         }
+        
         face_box = cm.camshift_track_face(img1, arrayfaces, cm);
         if(OldRect!=null)
         {
