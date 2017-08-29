@@ -471,7 +471,8 @@ try {
             flag3 = false;
         }
 
-        //calibrations process
+        ////////////////calibrations process/////////////////////
+        ////////////// Not Tested /////////////////////////////
         if (!calibrationDone){
 
 
@@ -493,6 +494,7 @@ try {
             }
 
         }
+        /////////////////////////////////////////////////////////////
 
         face_box = cm.camshift_track_face(img1, arrayfaces, cm);
         if(OldRect!=null)
@@ -540,7 +542,7 @@ try {
             Statusz = "Stable";
         }
 
-
+        //TODO: Detect Movement based on AvgHeight
         if(NewRect.height>firstTime.height+10){
             // banda qareeb ata ja raha hai
             // drone have to move backword
