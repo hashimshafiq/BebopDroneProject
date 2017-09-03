@@ -404,9 +404,8 @@ try {
 
     Utils.bitmapToMat(source, img1);
     if(newimg==null)
-      newimg= Bitmap.createBitmap(img1.cols(), img1.rows(), Bitmap.Config.ARGB_8888);
+        newimg= Bitmap.createBitmap(img1.cols(), img1.rows(), Bitmap.Config.ARGB_8888);
     Imgproc.cvtColor(img1, mRgba, Imgproc.COLOR_BGR2RGBA);
-
     Imgproc.cvtColor(mRgba, mGray, Imgproc.COLOR_BGR2GRAY);
 
 
@@ -448,6 +447,7 @@ try {
 
     }
 
+    // lock button flag
     if(flag)
     {
        p1.x=x1;
@@ -465,6 +465,7 @@ try {
 
 
     }
+
     if(flag2) {
         if (flag3) {
             cm.create_tracked_object(img1, arrayfaces, cm);
