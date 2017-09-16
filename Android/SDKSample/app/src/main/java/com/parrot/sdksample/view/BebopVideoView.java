@@ -416,7 +416,7 @@ try {
     int beta = 50;
     img1.convertTo(img1, -1 , alpha, beta);
 
-
+    /* ARUCO MARKERS CODE
     if(toggleAruco){
         MDetector.detect(img1,Markers,CamParam,(float)0.1);
         for(int i=0;i<Markers.size();i++){
@@ -435,6 +435,10 @@ try {
 
 
     }
+
+    */
+
+
 
     if(toggleAltitude){
         if (mBebopDrone.Altitude < requiredAltitude-altitudeRangeFactor) {
@@ -473,7 +477,7 @@ try {
         }
 
         ////////////////calibrations process/////////////////////
-        ////////////// Not Tested /////////////////////////////
+        
         if (!calibrationDone){
 
 
@@ -544,14 +548,14 @@ try {
         }
 
         //TODO: Detect Movement based on AvgHeight
-        if(NewRect.height>firstTime.height+10){
+        if(NewRect.height>avgHeight+5){
             // banda qareeb ata ja raha hai
             // drone have to move backword
             mBebopDrone.setPitch((byte) -15);
             mBebopDrone.setFlag((byte) 1);
             Statusz = "Motion Detected, Moving Backword";
 
-        }else if(NewRect.height<firstTime.height-10){
+        }else if(NewRect.height<avgHeight-5){
             // banda door jata ja raha hai
             // drone have to move forward
             mBebopDrone.setPitch((byte) 15);

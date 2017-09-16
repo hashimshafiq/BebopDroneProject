@@ -44,7 +44,7 @@
       <file leaf-file-name="BebopActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../app/src/main/java/com/parrot/sdksample/activity/BebopActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="253">
+            <state relative-caret-position="2596">
               <caret line="179" column="24" selection-start-line="179" selection-start-column="19" selection-end-line="179" selection-end-column="24" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -56,11 +56,10 @@
       <file leaf-file-name="BebopVideoView.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/../app/src/main/java/com/parrot/sdksample/view/BebopVideoView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="599">
-              <caret line="517" column="12" selection-start-line="517" selection-start-column="12" selection-end-line="517" selection-end-column="12" />
+            <state relative-caret-position="247">
+              <caret line="479" column="8" selection-start-line="479" selection-start-column="8" selection-end-line="479" selection-end-column="8" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#5465#5473#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -3136,6 +3135,20 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="AndroidView">
+        <subPane />
+      </pane>
+      <pane id="Scratches" />
+      <pane id="Scope">
+        <subPane subId="Project Files">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -3266,21 +3279,7 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="Scope">
-        <subPane subId="Project Files">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
       <pane id="PackagesPane">
-        <subPane />
-      </pane>
-      <pane id="AndroidView">
         <subPane />
       </pane>
     </panes>
@@ -3636,7 +3635,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1932" height="1060" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32946634" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32752612" sideWeight="0.49784482" order="7" side_tool="false" content_ui="tabs" />
@@ -3914,7 +3913,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../app/src/main/java/com/parrot/sdksample/activity/BebopActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
+        <state relative-caret-position="2596">
           <caret line="179" column="24" selection-start-line="179" selection-start-column="19" selection-end-line="179" selection-end-column="24" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -3924,11 +3923,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../app/src/main/java/com/parrot/sdksample/view/BebopVideoView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="599">
-          <caret line="517" column="12" selection-start-line="517" selection-start-column="12" selection-end-line="517" selection-end-column="12" />
+        <state relative-caret-position="247">
+          <caret line="479" column="8" selection-start-line="479" selection-start-column="8" selection-end-line="479" selection-end-column="8" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#5465#5473#0" expanded="true" />
           </folding>
         </state>
       </provider>
