@@ -1,60 +1,60 @@
 package com.parrot.sdksample.view;
 
 
-        import android.content.Context;
-        import android.graphics.Bitmap;
-        import android.graphics.SurfaceTexture;
-        import android.media.MediaCodec;
-        import android.media.MediaFormat;
-        import android.os.Environment;
-        import android.util.AttributeSet;
-        import android.util.Log;
-        import android.view.MenuItem;
-        import android.view.Surface;
-        import android.view.TextureView;
-        import android.view.View;
-        import android.widget.ImageView;
-        import android.widget.SeekBar;
-        import android.widget.TextView;
-        import android.widget.Toast;
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.SurfaceTexture;
+import android.media.MediaCodec;
+import android.media.MediaFormat;
+import android.os.Environment;
+import android.util.AttributeSet;
+import android.util.Log;
+import android.view.MenuItem;
+import android.view.Surface;
+import android.view.TextureView;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.SeekBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 
-        import com.parrot.arsdk.arcontroller.ARFrame;
-        import com.parrot.sdksample.R;
-        import com.parrot.sdksample.activity.BebopActivity;
-        import com.parrot.sdksample.activity.CamShifting;
-        import com.parrot.sdksample.drone.BebopDrone;
+import com.parrot.arsdk.arcontroller.ARFrame;
+import com.parrot.sdksample.R;
+import com.parrot.sdksample.activity.BebopActivity;
+import com.parrot.sdksample.activity.CamShifting;
+import com.parrot.sdksample.drone.BebopDrone;
 
 
-        import org.opencv.android.CameraBridgeViewBase;
-        import org.opencv.android.Utils;
-        import org.opencv.core.Core;
-        import org.opencv.core.CvType;
-        import org.opencv.core.Mat;
-        import org.opencv.core.MatOfRect;
-        import org.opencv.core.Point;
-        import org.opencv.core.Rect;
-        import org.opencv.core.RotatedRect;
-        import org.opencv.core.Scalar;
-        import org.opencv.core.Size;
-        import org.opencv.imgproc.Imgproc;
-        import org.opencv.objdetect.CascadeClassifier;
-        import org.opencv.objdetect.Objdetect;
+import org.opencv.android.CameraBridgeViewBase;
+import org.opencv.android.Utils;
+import org.opencv.core.Core;
+import org.opencv.core.CvType;
+import org.opencv.core.Mat;
+import org.opencv.core.MatOfRect;
+import org.opencv.core.Point;
+import org.opencv.core.Rect;
+import org.opencv.core.RotatedRect;
+import org.opencv.core.Scalar;
+import org.opencv.core.Size;
+import org.opencv.imgproc.Imgproc;
+import org.opencv.objdetect.CascadeClassifier;
+import org.opencv.objdetect.Objdetect;
 
-        import java.io.File;
-        import java.io.FileOutputStream;
-        import java.io.IOException;
-        import java.io.InputStream;
-        import java.nio.ByteBuffer;
-        import java.util.ArrayList;
-        import java.util.Vector;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.ByteBuffer;
+import java.util.ArrayList;
+import java.util.Vector;
 
-        import es.ava.aruco.CameraParameters;
-        import es.ava.aruco.Marker;
-        import es.ava.aruco.MarkerDetector;
+import es.ava.aruco.CameraParameters;
+import es.ava.aruco.Marker;
+import es.ava.aruco.MarkerDetector;
 
-        import static android.content.ContentValues.TAG;
-        import static com.parrot.arsdk.arcommands.ARCOMMANDS_ARDRONE3_PILOTINGSTATE_FLYINGSTATECHANGED_STATE_ENUM.ARCOMMANDS_ARDRONE3_PILOTINGSTATE_FLYINGSTATECHANGED_STATE_LANDED;
+import static android.content.ContentValues.TAG;
+import static com.parrot.arsdk.arcommands.ARCOMMANDS_ARDRONE3_PILOTINGSTATE_FLYINGSTATECHANGED_STATE_ENUM.ARCOMMANDS_ARDRONE3_PILOTINGSTATE_FLYINGSTATECHANGED_STATE_LANDED;
 
 
 public class BebopVideoView extends TextureView implements TextureView.SurfaceTextureListener {
@@ -72,20 +72,20 @@ public class BebopVideoView extends TextureView implements TextureView.SurfaceTe
     private ByteBuffer[] buffers;
     Mat firstMat = new Mat();
     public Bitmap source;
-    int counter=0;
-    public boolean tryz=false;
+    int counter = 0;
+    public boolean tryz = false;
     public threading thread;
-    boolean starter=false;
+    boolean starter = false;
     ImageView img;
 
-    public boolean flag=false;
-    public int x1,x2;
-    public int y1,y2;
-    public int h1,w1;
-    public Point p1=new Point();
-    public Point p2=new Point();
+    public boolean flag = false;
+    public int x1, x2;
+    public int y1, y2;
+    public int h1, w1;
+    public Point p1 = new Point();
+    public Point p2 = new Point();
     public Rect[] arrayfaces;
-    public Rect Region=new Rect();
+    public Rect Region = new Rect();
 
 
     public BebopDrone mBebopDrone;
@@ -108,10 +108,8 @@ public class BebopVideoView extends TextureView implements TextureView.SurfaceTe
     /////////////////////////////////////
 
 
-
-
-    private static final Scalar RECT_COLOR     = new Scalar(0, 255, 0, 255);
-    public static final int        JAVA_DETECTOR       = 0;
+    private static final Scalar RECT_COLOR = new Scalar(0, 255, 0, 255);
+    public static final int JAVA_DETECTOR = 0;
     private static final int TM_SQDIFF = 0;
     private static final int TM_SQDIFF_NORMED = 1;
     private static final int TM_CCOEFF = 2;
@@ -130,23 +128,23 @@ public class BebopVideoView extends TextureView implements TextureView.SurfaceTe
     private Mat mZoomWindow2;
 
     private MenuItem mItemFace50;
-    private MenuItem               mItemFace40;
-    private MenuItem               mItemFace30;
-    private MenuItem               mItemFace20;
+    private MenuItem mItemFace40;
+    private MenuItem mItemFace30;
+    private MenuItem mItemFace20;
     // private MenuItem               mItemType;
 
-    private Mat                    mRgba=new Mat();
-    private Mat                    mGray=new Mat();
+    private Mat mRgba = new Mat();
+    private Mat mGray = new Mat();
     private File mCascadeFile;
-    private File                   mCascadeFileEye;
+    private File mCascadeFileEye;
     private CascadeClassifier mJavaDetector;
-    private CascadeClassifier      mJavaDetectorEye;
+    private CascadeClassifier mJavaDetectorEye;
 
 
-    private int                    mDetectorType       = JAVA_DETECTOR;
-    private String[]               mDetectorName;
+    private int mDetectorType = JAVA_DETECTOR;
+    private String[] mDetectorName;
 
-    private float                  mRelativeFaceSize   = 0.2f;
+    private float mRelativeFaceSize = 0.2f;
     private int mAbsoluteFaceSize = 0;
 
     private CameraBridgeViewBase mOpenCvCameraView;
@@ -160,14 +158,14 @@ public class BebopVideoView extends TextureView implements TextureView.SurfaceTe
     public boolean flag3;
     Rect NewRect;
     Rect OldRect;
-    public String Statusz="Status:   ";
-    int count=0;
+    public String Statusz = "Status:   ";
+    int count = 0;
     RotatedRect face_box;
 
     //////////// aruco settings/////////
     public boolean toggleAruco = false;
     MarkerDetector MDetector;
-    Vector<Marker> Markers=new Vector<Marker>();
+    Vector<Marker> Markers = new Vector<Marker>();
     public CameraParameters CamParam;
     Point ptc1;
     Point ptc2;
@@ -180,41 +178,33 @@ public class BebopVideoView extends TextureView implements TextureView.SurfaceTe
     public int avgHeight = 0;
 
 
-
-
-
-
-
-
-
-
     ////////////////////////////////////////////////////////
 
     public BebopVideoView(Context context) {
         this(context, null);
-        Status =(TextView) findViewById(R.id.textView5) ;
+        Status = (TextView) findViewById(R.id.textView5);
         setSurfaceTextureListener(this);
 
     }
 
     public BebopVideoView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
-        Status =(TextView) findViewById(R.id.textView5) ;
+        Status = (TextView) findViewById(R.id.textView5);
         setSurfaceTextureListener(this);
     }
 
     public BebopVideoView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         setSurfaceTextureListener(this);
-        Status =(TextView) findViewById(R.id.textView5) ;
+        Status = (TextView) findViewById(R.id.textView5);
     }
 
 
     public void displayFrame(final ByteBuffer spsBuffer, final ByteBuffer ppsBuffer, ARFrame frame) {
-        if(!starter) {
-           cm=new CamShifting();
+        if (!starter) {
+            cm = new CamShifting();
 
-            arrayfaces=new Rect[1];
+            arrayfaces = new Rect[1];
 
 
             try {
@@ -266,14 +256,15 @@ public class BebopVideoView extends TextureView implements TextureView.SurfaceTe
                 Log.e(TAG, "Failed to load cascade. Exception thrown: " + e);
             }
 
-           CamParam = new CameraParameters();
+            CamParam = new CameraParameters();
 
             System.out.println(Environment.getExternalStorageDirectory().toString() + "/camera.yaml");
-           CamParam.readFromFile(Environment.getExternalStorageDirectory().toString() + "/camera.yaml");
+            CamParam.readFromFile(Environment.getExternalStorageDirectory().toString() + "/camera.yaml");
+
 
             thread = new threading();
             thread.start();
-            starter=true;
+            starter = true;
         }
 
 
@@ -323,7 +314,6 @@ public class BebopVideoView extends TextureView implements TextureView.SurfaceTe
                 mediaCodec.releaseOutputBuffer(outIndex, true);
                 outIndex = mediaCodec.dequeueOutputBuffer(info, 0);
             }
-
 
 
         } catch (IllegalStateException e) {
@@ -388,33 +378,34 @@ public class BebopVideoView extends TextureView implements TextureView.SurfaceTe
 
 
     }
-    Mat img1=new Mat();
-   public Bitmap newimg;
 
-    class threading extends Thread{
+    Mat img1 = new Mat();
+    public Bitmap newimg;
+
+    class threading extends Thread {
         @Override
         public void run() {
             while (true) {
-              //  System.out.println("In Thread");
-               // firstMat = new Mat();
+                //  System.out.println("In Thread");
+                // firstMat = new Mat();
 
 
-try {
-    source = getBitmap();
+                try {
+                    source = getBitmap();
 
-    Utils.bitmapToMat(source, img1);
-    if(newimg==null)
-        newimg= Bitmap.createBitmap(img1.cols(), img1.rows(), Bitmap.Config.ARGB_8888);
-    Imgproc.cvtColor(img1, mRgba, Imgproc.COLOR_BGR2RGBA);
-    Imgproc.cvtColor(mRgba, mGray, Imgproc.COLOR_BGR2GRAY);
+                    Utils.bitmapToMat(source, img1);
+                    if (newimg == null)
+                        newimg = Bitmap.createBitmap(img1.cols(), img1.rows(), Bitmap.Config.ARGB_8888);
+                    Imgproc.cvtColor(img1, mRgba, Imgproc.COLOR_BGR2RGBA);
+                    Imgproc.cvtColor(mRgba, mGray, Imgproc.COLOR_BGR2GRAY);
 
 
-  //  Imgproc.Canny(img1, img1, 10, 100, 3, true);
-    img1=onCameraFrame();
-    Imgproc.cvtColor(img1, img1, Imgproc.COLOR_RGBA2BGRA);
-    int alpha = 1;
-    int beta = 50;
-    img1.convertTo(img1, -1 , alpha, beta);
+                    //  Imgproc.Canny(img1, img1, 10, 100, 3, true);
+                    //img1=onCameraFrame();
+                    Imgproc.cvtColor(img1, img1, Imgproc.COLOR_RGBA2BGRA);
+                    int alpha = 1;
+                    int beta = 50;
+                    img1.convertTo(img1, -1, alpha, beta);
 
     /* ARUCO MARKERS CODE
     if(toggleAruco){
@@ -439,164 +430,148 @@ try {
     */
 
 
+                    if (toggleAltitude) {
+                        if (mBebopDrone.Altitude < requiredAltitude - altitudeRangeFactor) {
+                            mBebopDrone.setGaz((byte) 1);
+                        } else if (mBebopDrone.Altitude > requiredAltitude + requiredAltitude) {
+                            mBebopDrone.setGaz((byte) -1);
+                        } else {
+                            mBebopDrone.setGaz((byte) 0);
+                        }
 
-    if(toggleAltitude){
-        if (mBebopDrone.Altitude < requiredAltitude-altitudeRangeFactor) {
-            mBebopDrone.setGaz((byte) 1);
-        } else if (mBebopDrone.Altitude > requiredAltitude+requiredAltitude) {
-            mBebopDrone.setGaz((byte) -1);
-        }else{
-            mBebopDrone.setGaz((byte) 0);
-        }
+                    }
 
-    }
-
-    // lock button flag
-    if(flag)
-    {
-       p1.x=x1;
-        p1.y=y1;
-        p2.x=x2;
-        p2.y=y2;
-        Region=new Rect(p1,p2);
-        arrayfaces[0]=Region;
+                    // lock button flag
+                    if (flag) {
+                        p1.x = x1;
+                        p1.y = y1;
+                        p2.x = x2;
+                        p2.y = y2;
+                        Region = new Rect(p1, p2);
+                        arrayfaces[0] = Region;
 
 
-        Imgproc.rectangle(img1,p1,p2, RECT_COLOR, 3);
+                        Imgproc.rectangle(img1, p1, p2, RECT_COLOR, 3);
 
 
+                    }
+
+                    if (flag2) {
+                        if (flag3) {
+                            cm.create_tracked_object(img1, arrayfaces, cm);
+                            flag3 = false;
+                        }
+
+                        ////////////////calibrations process/////////////////////
+
+                        if (!calibrationDone) {
 
 
+                            while (count <= 100) {
+                                face_box = cm.camshift_track_face(img1, arrayfaces, cm);
+                                count++;
+                            }
+                            while (calibrationFrame < calibrationFrames) {
 
-    }
+                                Statusz = "Calibration in Progress... " + calibrationFrame;
+                                face_box = cm.camshift_track_face(img1, arrayfaces, cm);
+                                avgHeight += face_box.boundingRect().height;
+                                calibrationFrame++;
 
-    if(flag2) {
-        if (flag3) {
-            cm.create_tracked_object(img1, arrayfaces, cm);
-            flag3 = false;
-        }
+                            }
+                            if (calibrationFrame == calibrationFrames) {
+                                avgHeight /= calibrationFrames;
+                                calibrationDone = true;
+                            }
 
-        ////////////////calibrations process/////////////////////
-        
-        if (!calibrationDone){
+                        }
+                        /////////////////////////////////////////////////////////////
 
+                        face_box = cm.camshift_track_face(img1, arrayfaces, cm);
+                        if (OldRect != null) {
+                            OldRect = NewRect;
+                        }
 
-            while (count <= 100) {
-                face_box = cm.camshift_track_face(img1, arrayfaces, cm);
-                count++;
-            }
-            while(calibrationFrame<calibrationFrames) {
+                        NewRect = face_box.boundingRect();
 
-                Statusz = "Calibration in Progress... "+calibrationFrame;
-                face_box = cm.camshift_track_face(img1, arrayfaces, cm);
-                avgHeight += face_box.boundingRect().height;
-                calibrationFrame++;
+                        if (OldRect == null) {
+                            OldRect = NewRect;
+                            //firstTime = NewRect;
+                        }
 
-            }
-            if(calibrationFrame==calibrationFrames){
-                avgHeight /= calibrationFrames;
-                calibrationDone = true;
-            }
+                        //////////// Rotation Code ////////////////////
+                        width = img1.cols();
 
-        }
-        /////////////////////////////////////////////////////////////
+                        rectWidth = width / 3;
 
-        face_box = cm.camshift_track_face(img1, arrayfaces, cm);
-        if(OldRect!=null)
-        {
-            OldRect=NewRect;
-        }
-
-        NewRect = face_box.boundingRect();
-
-        if(OldRect==null) {
-            OldRect=NewRect;
-            firstTime = NewRect;
-        }
-
-        //////////// Rotation Code ////////////////////
-        width=img1.cols();
-
-        rectWidth=width/3;
-
-        left =new Rect(0, 0, rectWidth+rectWidth/5, img1.rows());
-        right = new Rect((2*rectWidth - 1)-rectWidth/5, 0, rectWidth+rectWidth/5, img1.rows());
+                        left = new Rect(0, 0, rectWidth + rectWidth / 5, img1.rows());
+                        right = new Rect((2 * rectWidth - 1) - rectWidth / 5, 0, rectWidth + rectWidth / 5, img1.rows());
 
 
+                        // left right rectangles displayed on mobile screen for debugging purpose
+                        Imgproc.rectangle(img1, left.tl(), left.br(), RECT_COLOR, 3);
+                        Imgproc.rectangle(img1, right.tl(), right.br(), RECT_COLOR, 3);
+
+                        pRight = new Point(right.tl().x, right.tl().y);
+                        pLeft = new Point(left.br().x, left.br().y);
+
+                        if (NewRect.tl().x <= pLeft.x) {
+                            // banda left par nikal gya
+                            mBebopDrone.setYaw((byte) -15);
 
 
-        // left right rectangles displayed on mobile screen for debugging purpose
-        Imgproc.rectangle(img1,left.tl(),left.br(), RECT_COLOR, 3);
-        Imgproc.rectangle(img1,right.tl(),right.br(), RECT_COLOR, 3);
+                            Statusz = "Motion Detected, Rotating Left";
+                        } else if (NewRect.br().x >= pRight.x) {
+                            // banda right par nikal gya
+                            mBebopDrone.setYaw((byte) 15);
+                            Statusz = "Motion Detected, Rotating Right";
+                        } else {
+                            mBebopDrone.setYaw((byte) 0);
+                            Statusz = "Stable";
+                        }
 
-        pRight = new Point(right.tl().x,right.tl().y);
-        pLeft = new Point(left.br().x,left.br().y);
+                        // Forward Backward Code
+                        if (NewRect.height > avgHeight + 5) {
+                            // banda qareeb ata ja raha hai
+                            // drone have to move backword
+                            mBebopDrone.setPitch((byte) -15);
+                            mBebopDrone.setFlag((byte) 1);
+                            Statusz = "Motion Detected, Moving Backword";
 
-        if(NewRect.tl().x <= pLeft.x){
-            // banda left par nikal gya
-            mBebopDrone.setYaw((byte) -15);
+                        } else if (NewRect.height < avgHeight - 5) {
+                            // banda door jata ja raha hai
+                            // drone have to move forward
+                            mBebopDrone.setPitch((byte) 15);
+                            mBebopDrone.setFlag((byte) 1);
+                            Statusz = "Motion Detected, Moving Forward";
 
-
-            Statusz = "Motion Detected, Rotating Left";
-        } else if (NewRect.br().x >= pRight.x){
-            // banda right par nikal gya
-            mBebopDrone.setYaw((byte) 15);
-            Statusz = "Motion Detected, Rotating Right";
-        }else{
-            mBebopDrone.setYaw((byte) 0);
-            Statusz = "Stable";
-        }
-
-        //TODO: Detect Movement based on AvgHeight
-        if(NewRect.height>avgHeight+5){
-            // banda qareeb ata ja raha hai
-            // drone have to move backword
-            mBebopDrone.setPitch((byte) -15);
-            mBebopDrone.setFlag((byte) 1);
-            Statusz = "Motion Detected, Moving Backword";
-
-        }else if(NewRect.height<avgHeight-5){
-            // banda door jata ja raha hai
-            // drone have to move forward
-            mBebopDrone.setPitch((byte) 15);
-            mBebopDrone.setFlag((byte) 1);
-            Statusz = "Motion Detected, Moving Forward";
-
-        }else{
-            mBebopDrone.setFlag((byte) 0);
-            mBebopDrone.setPitch((byte) 0);
-            Statusz = "Stable";
-        }
+                        } else {
+                            mBebopDrone.setFlag((byte) 0);
+                            mBebopDrone.setPitch((byte) 0);
+                            Statusz = "Stable";
+                        }
 
 
+                        Imgproc.rectangle(img1, NewRect.tl(), NewRect.br(), RECT_COLOR, 3);
+                    }
 
 
+                    Utils.matToBitmap(img1, newimg);
+
+                } catch (Exception E) {
+                    E.printStackTrace();
+                    System.out.println(E.getMessage());
+                    ;
+                }
 
 
-
-
-
-        Imgproc.rectangle(img1,NewRect.tl(),NewRect.br(), RECT_COLOR, 3);
-    }
-
-
-    Utils.matToBitmap(img1, newimg);
-
-}
-catch(Exception E)
-{
-   E.printStackTrace();
-    System.out.println(E.getMessage());;
-}
-
-
-
- //               System.out.println("After Counter " + (++counter));
+                //               System.out.println("After Counter " + (++counter));
 
             }
         }
 
     }
+
     public Mat onCameraFrame() {
 
 
@@ -617,8 +592,7 @@ catch(Exception E)
             if (mJavaDetector != null)
                 mJavaDetector.detectMultiScale(mGray, faces, 1.1, 2, 2, // TODO: objdetect.CV_HAAR_SCALE_IMAGE
                         new Size(mAbsoluteFaceSize, mAbsoluteFaceSize), new Size());
-        }
-        else {
+        } else {
             Log.e(TAG, "Detection method is not selected!");
         }
 
@@ -661,13 +635,11 @@ catch(Exception E)
         */
 
 
-
-            // draw the area - mGray is working grayscale mat, if you want to
-            // see area in rgb preview, change mGray to mRgba
-
+        // draw the area - mGray is working grayscale mat, if you want to
+        // see area in rgb preview, change mGray to mRgba
 
 
-            //For EyeBox Removals (left And right)
+        //For EyeBox Removals (left And right)
             /*Imgproc.rectangle(mRgba, eyearea_left.tl(), eyearea_left.br(),
                     new Scalar(255, 0, 0, 255), 2);
             Imgproc.rectangle(mRgba, eyearea_right.tl(), eyearea_right.br(),
@@ -691,7 +663,7 @@ catch(Exception E)
             }
 */
 
-            // cut eye areas and put them to zoom windows
+        // cut eye areas and put them to zoom windows
 
             /*
             Imgproc.resize(mRgba.submat(eyearea_left), mZoomWindow2,
@@ -709,7 +681,6 @@ catch(Exception E)
     }
 
 
-
     private void match_eye(Rect area, Mat mTemplate, int type) {
         Point matchLoc;
         Mat mROI = mGray.submat(area);
@@ -717,7 +688,7 @@ catch(Exception E)
         int result_rows = mROI.rows() - mTemplate.rows() + 1;
         // Check for bad template size
         if (mTemplate.cols() == 0 || mTemplate.rows() == 0) {
-            return ;
+            return;
         }
         Mat mResult = new Mat(result_cols, result_rows, CvType.CV_8U);
 
@@ -759,12 +730,10 @@ catch(Exception E)
 
         Imgproc.rectangle(mRgba, matchLoc_tx, matchLoc_ty, new Scalar(255, 255, 0,
                 255));
-        Rect rec = new Rect(matchLoc_tx,matchLoc_ty);
+        Rect rec = new Rect(matchLoc_tx, matchLoc_ty);
 
 
     }
-
-
 
 
     private Mat get_template(CascadeClassifier clasificator, Rect area, int size) {
@@ -779,7 +748,7 @@ catch(Exception E)
                 new Size());
 
         Rect[] eyesArray = eyes.toArray();
-        for (int i = 0; i < eyesArray.length;) {
+        for (int i = 0; i < eyesArray.length; ) {
             Rect e = eyesArray[i];
             e.x = area.x + e.x;
             e.y = area.y + e.y;
@@ -827,8 +796,7 @@ catch(Exception E)
 
     }
 
-    public void onRecreateClick(View v)
-    {
+    public void onRecreateClick(View v) {
         learn_frames = 0;
     }
 }

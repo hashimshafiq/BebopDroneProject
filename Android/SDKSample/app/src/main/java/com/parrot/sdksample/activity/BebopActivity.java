@@ -18,7 +18,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-
 import com.parrot.arsdk.arcommands.ARCOMMANDS_ARDRONE3_MEDIARECORDEVENT_PICTUREEVENTCHANGED_ERROR_ENUM;
 import com.parrot.arsdk.arcommands.ARCOMMANDS_ARDRONE3_PILOTINGSTATE_FLYINGSTATECHANGED_STATE_ENUM;
 import com.parrot.arsdk.arcontroller.ARCONTROLLER_DEVICE_STATE_ENUM;
@@ -38,7 +37,6 @@ import com.parrot.sdksample.R;
 import com.parrot.sdksample.drone.BebopDrone;
 import com.parrot.sdksample.view.BebopVideoView;
 import com.parrot.sdksample.view.CVClassifierView;
-import com.parrot.sdksample.view.JSVideoView;
 
 import org.opencv.android.CameraBridgeViewBase;
 import org.opencv.android.OpenCVLoader;
@@ -67,7 +65,7 @@ import es.ava.aruco.MarkerDetector;
 public class BebopActivity extends AppCompatActivity {
     private static final String TAG = "BebopActivity";
     private BebopDrone mBebopDrone;
-    int counter=0;
+    int counter = 0;
 
     private ProgressDialog mConnectionProgressDialog;
     private ProgressDialog mDownloadProgressDialog;
@@ -80,7 +78,7 @@ public class BebopActivity extends AppCompatActivity {
     private Button mDownloadBt;
     public Button Lock;
     public boolean toggleAltitude = false;
-    public double droneAltitude =0;
+    public double droneAltitude = 0;
     //public double requiredAltitude = 1.5;
     //public double altitudeRangeFactor = 0.2;
     private int mNbMaxDownload;
@@ -94,8 +92,6 @@ public class BebopActivity extends AppCompatActivity {
     public Bitmap source;
 
 
-
-
     static {
         if (!OpenCVLoader.initDebug()) {
             // Handle initialization error
@@ -103,20 +99,7 @@ public class BebopActivity extends AppCompatActivity {
     }
 
 
-
-
-
-
     //////////////////////////////
-
-
-
-
-
-
-
-
-
 
 
     //////////////////////////////
@@ -125,17 +108,17 @@ public class BebopActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bebop);
-        AltitudeLabel= (TextView) findViewById( R.id.textView4);
-        Lock=(Button) findViewById(R.id.button2);
+        AltitudeLabel = (TextView) findViewById(R.id.textView4);
+        Lock = (Button) findViewById(R.id.button2);
 
-        img1=new Mat();
+        img1 = new Mat();
         initIHM();
 
         Intent intent = getIntent();
         ARDiscoveryDeviceService service = intent.getParcelableExtra(DeviceListActivity.EXTRA_DEVICE_SERVICE);
         mBebopDrone = new BebopDrone(this, service);
         mBebopDrone.addListener(mBebopListener);
-        Status=(TextView)findViewById(R.id.textView5);
+        Status = (TextView) findViewById(R.id.textView5);
 
         v1.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -147,9 +130,9 @@ public class BebopActivity extends AppCompatActivity {
                 switch (motionEvent.getAction()) {
 
                     case MotionEvent.ACTION_DOWN:
-                        mVideoView.flag=false;
-                        mVideoView.x1= (int) motionEvent.getX();
-                        mVideoView.y1= (int) motionEvent.getY();
+                        mVideoView.flag = false;
+                        mVideoView.x1 = (int) motionEvent.getX();
+                        mVideoView.y1 = (int) motionEvent.getY();
                         break;
 
 
@@ -157,12 +140,12 @@ public class BebopActivity extends AppCompatActivity {
                         break;
 
                     case MotionEvent.ACTION_UP:
-                        mVideoView.x2= (int) motionEvent.getX();
-                        mVideoView.y2= (int) motionEvent.getY();
+                        mVideoView.x2 = (int) motionEvent.getX();
+                        mVideoView.y2 = (int) motionEvent.getY();
 
-                        mVideoView.h1=mVideoView.y2-mVideoView.y1;
-                        mVideoView.w1=mVideoView.x2-mVideoView.x1;
-                        mVideoView.flag=true;
+                        mVideoView.h1 = mVideoView.y2 - mVideoView.y1;
+                        mVideoView.w1 = mVideoView.x2 - mVideoView.x1;
+                        mVideoView.flag = true;
 
                         break;
 
@@ -172,17 +155,17 @@ public class BebopActivity extends AppCompatActivity {
             }
         });
 
-Lock.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View view) {
+        Lock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-        mVideoView.flag=false;
-        mVideoView.flag2=true;
-        mVideoView.flag3=true;
+                mVideoView.flag = false;
+                mVideoView.flag2 = true;
+                mVideoView.flag3 = true;
 
-        mVideoView.mBebopDrone=mBebopDrone;
-    }
-});
+                mVideoView.mBebopDrone = mBebopDrone;
+            }
+        });
 
     }
 
@@ -191,8 +174,7 @@ Lock.setOnClickListener(new View.OnClickListener() {
         super.onStart();
 
         // show a loading view while the bebop drone is connecting
-        if ((mBebopDrone != null) && !(ARCONTROLLER_DEVICE_STATE_ENUM.ARCONTROLLER_DEVICE_STATE_RUNNING.equals(mBebopDrone.getConnectionState())))
-        {
+        if ((mBebopDrone != null) && !(ARCONTROLLER_DEVICE_STATE_ENUM.ARCONTROLLER_DEVICE_STATE_RUNNING.equals(mBebopDrone.getConnectionState()))) {
             mConnectionProgressDialog = new ProgressDialog(this, R.style.AppCompatAlertDialogStyle);
             mConnectionProgressDialog.setIndeterminate(true);
             mConnectionProgressDialog.setMessage("Connecting ...");
@@ -208,8 +190,7 @@ Lock.setOnClickListener(new View.OnClickListener() {
 
     @Override
     public void onBackPressed() {
-        if (mBebopDrone != null)
-        {
+        if (mBebopDrone != null) {
             mConnectionProgressDialog = new ProgressDialog(this, R.style.AppCompatAlertDialogStyle);
             mConnectionProgressDialog.setIndeterminate(true);
             mConnectionProgressDialog.setMessage("Disconnecting ...");
@@ -223,17 +204,16 @@ Lock.setOnClickListener(new View.OnClickListener() {
     }
 
     @Override
-    public void onDestroy()
-    {
+    public void onDestroy() {
         mBebopDrone.dispose();
         super.onDestroy();
     }
 
     private void initIHM() {
         mVideoView = (BebopVideoView) findViewById(R.id.videoView);
-        v1=(ImageView) findViewById(R.id.zz);
+        v1 = (ImageView) findViewById(R.id.zz);
 
-       // ImageView viewzz=(ImageView) findViewById(R.id.videoViewaa);
+        // ImageView viewzz=(ImageView) findViewById(R.id.videoViewaa);
         //CVClassifierView viewcc=new CVClassifierView(this);
         //viewcc.resume(mVideoView,viewzz);
 
@@ -267,7 +247,7 @@ Lock.setOnClickListener(new View.OnClickListener() {
             }
         });
 
-        mDownloadBt = (Button)findViewById(R.id.downloadBt);
+        mDownloadBt = (Button) findViewById(R.id.downloadBt);
         mDownloadBt.setEnabled(false);
         mDownloadBt.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -483,18 +463,12 @@ Lock.setOnClickListener(new View.OnClickListener() {
     }
 
 
-
-        private final BebopDrone.Listener mBebopListener = new BebopDrone.Listener() {
-
-
-
-
+    private final BebopDrone.Listener mBebopListener = new BebopDrone.Listener() {
 
 
         @Override
         public void onDroneConnectionChanged(ARCONTROLLER_DEVICE_STATE_ENUM state) {
-            switch (state)
-            {
+            switch (state) {
                 case ARCONTROLLER_DEVICE_STATE_RUNNING:
                     mConnectionProgressDialog.dismiss();
                     break;
@@ -514,10 +488,10 @@ Lock.setOnClickListener(new View.OnClickListener() {
         public void onCommandReceived(ARDeviceController deviceController, ARCONTROLLER_DICTIONARY_KEY_ENUM commandKey, ARControllerDictionary elementDictionary) {
 
 
-            if ((commandKey == ARCONTROLLER_DICTIONARY_KEY_ENUM.ARCONTROLLER_DICTIONARY_KEY_ARDRONE3_PILOTINGSTATE_ALTITUDECHANGED) && (elementDictionary != null)){
+            if ((commandKey == ARCONTROLLER_DICTIONARY_KEY_ENUM.ARCONTROLLER_DICTIONARY_KEY_ARDRONE3_PILOTINGSTATE_ALTITUDECHANGED) && (elementDictionary != null)) {
                 ARControllerArgumentDictionary<Object> args = elementDictionary.get(ARControllerDictionary.ARCONTROLLER_DICTIONARY_SINGLE_KEY);
                 if (args != null) {
-                    double altitude = (double)args.get(ARFeatureARDrone3.ARCONTROLLER_DICTIONARY_KEY_ARDRONE3_PILOTINGSTATE_ALTITUDECHANGED_ALTITUDE);
+                    double altitude = (double) args.get(ARFeatureARDrone3.ARCONTROLLER_DICTIONARY_KEY_ARDRONE3_PILOTINGSTATE_ALTITUDECHANGED_ALTITUDE);
                     droneAltitude = altitude;
                 }
             }
@@ -527,8 +501,6 @@ Lock.setOnClickListener(new View.OnClickListener() {
         public void onBatteryChargeChanged(int batteryPercentage) {
             mBatteryLabel.setText(String.format("%d%%", batteryPercentage));
         }
-
-
 
 
         @Override
@@ -552,21 +524,19 @@ Lock.setOnClickListener(new View.OnClickListener() {
             }
         }
 
-            @Override
-            public void onAltitudeChanged(Double Altitude) {
-                AltitudeLabel.setText(String.format("%.2f", Altitude));
+        @Override
+        public void onAltitudeChanged(Double Altitude) {
+            AltitudeLabel.setText(String.format("%.2f", Altitude));
 
-            }
+        }
 
-            @Override
+        @Override
         public void onPictureTaken(ARCOMMANDS_ARDRONE3_MEDIARECORDEVENT_PICTUREEVENTCHANGED_ERROR_ENUM error) {
             Log.i(TAG, "Picture has been taken");
         }
 
         @Override
         public void configureDecoder(ARControllerCodec codec) {
-
-
 
 
             if (codec.getType() == ARCONTROLLER_STREAM_CODEC_TYPE_ENUM.ARCONTROLLER_STREAM_CODEC_TYPE_H264) {
@@ -577,85 +547,44 @@ Lock.setOnClickListener(new View.OnClickListener() {
             }
 
 
-
-
         }
 
         @Override
         public void onFrameReceived(ARFrame frame) {
 
 
-            mVideoView.displayFrame(mSpsBuffer,mPpsBuffer,frame);
-
+            mVideoView.displayFrame(mSpsBuffer, mPpsBuffer, frame);
 
 
 //            m1=mVideoView.source;
 
 
-
 //            Utils.bitmapToMat(m1,img1);
-  //          Imgproc.cvtColor(img1, img1, Imgproc.COLOR_BGR2GRAY);
-           // Imgproc.Canny(img1,img1, 10, 100, 3, true);
+            //          Imgproc.cvtColor(img1, img1, Imgproc.COLOR_BGR2GRAY);
+            // Imgproc.Canny(img1,img1, 10, 100, 3, true);
 
 
-
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-
-
-try {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
 
 
-   // m1= Bitmap.createBitmap(img1.cols(), img1.rows(), Bitmap.Config.ARGB_8888);
-   // Utils.matToBitmap(img1 ,m1);
-    v1.setImageBitmap(mVideoView.newimg);
-    Status.setText(mVideoView.Statusz);
-}
-catch(Exception E)
-{
-    System.out.println("Error Error Error ");
-}
+                    try {
 
+
+                        // m1= Bitmap.createBitmap(img1.cols(), img1.rows(), Bitmap.Config.ARGB_8888);
+                        // Utils.matToBitmap(img1 ,m1);
+                        v1.setImageBitmap(mVideoView.newimg);
+                        Status.setText(mVideoView.Statusz);
+                    } catch (Exception E) {
+                        System.out.println("Error Error Error ");
                     }
-                });
+
+                }
+            });
 
 
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         @Override
@@ -699,12 +628,6 @@ catch(Exception E)
                 mDownloadProgressDialog = null;
             }
         }
-
-
-
-
-
-
 
 
     };

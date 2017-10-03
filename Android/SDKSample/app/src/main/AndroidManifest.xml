@@ -38,23 +38,7 @@
             android:screenOrientation="landscape"/>
 
         <activity
-            android:name=".activity.SkyControllerActivity"
-            android:screenOrientation="landscape"/>
-
-        <activity
-            android:name=".activity.SkyController2Activity"
-            android:screenOrientation="landscape"/>
-
-        <activity
             android:name=".activity.JSActivity"
-            android:screenOrientation="landscape"/>
-
-        <activity
-            android:name=".activity.MiniDroneActivity"
-            android:screenOrientation="landscape"/>
-
-        <activity
-            android:name=".activity.SwingDroneActivity"
             android:screenOrientation="landscape"/>
 
     </application>

@@ -21,15 +21,6 @@
     </item>
     <item
         is-multidex="true"
-        jar="D:\Samples\Android\SDKSample\app\libs\commons-configuration-1.5.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="d891c003b41adc63ab99e5f697e04d633568965a">
-        <dex dex="D:\Samples\Android\SDKSample\app\build\intermediates\transforms\dex\debug\folders\1000\2\commons-configuration-1.5_d411e99b6db7172bd2f697beb118bd87163df6a1\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="D:\Samples\Android\SDKSample\app\libs\commons-lang-2.4.jar"
         jumboMode="true"
         optimize="true"
@@ -39,11 +30,20 @@
     </item>
     <item
         is-multidex="true"
+        jar="D:\Samples\Android\SDKSample\app\libs\commons-configuration-1.5.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="d891c003b41adc63ab99e5f697e04d633568965a">
+        <dex dex="D:\Samples\Android\SDKSample\app\build\intermediates\transforms\dex\debug\folders\1000\2\commons-configuration-1.5_d411e99b6db7172bd2f697beb118bd87163df6a1\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="D:\Samples\Android\SDKSample\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
-        sha1="03a6206a839d176ef8adbcdc255ad567eaa36dd7">
+        sha1="e0169cf3d92f5ba143f7bbd52dfcea6df26d33d9">
         <dex dex="D:\Samples\Android\SDKSample\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_849abfddb4a6c57bfcf10910fe9eec7b7bceaa56\classes.dex" />
     </item>
 
