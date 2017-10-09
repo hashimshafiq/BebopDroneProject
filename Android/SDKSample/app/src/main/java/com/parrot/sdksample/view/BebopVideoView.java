@@ -54,7 +54,6 @@ import es.ava.aruco.Marker;
 import es.ava.aruco.MarkerDetector;
 
 import static android.content.ContentValues.TAG;
-import static com.parrot.arsdk.arcommands.ARCOMMANDS_ARDRONE3_PILOTINGSTATE_FLYINGSTATECHANGED_STATE_ENUM.ARCOMMANDS_ARDRONE3_PILOTINGSTATE_FLYINGSTATECHANGED_STATE_LANDED;
 
 
 public class BebopVideoView extends TextureView implements TextureView.SurfaceTextureListener {
