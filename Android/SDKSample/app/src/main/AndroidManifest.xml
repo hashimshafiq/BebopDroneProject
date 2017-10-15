@@ -37,9 +37,6 @@
             android:name=".activity.BebopActivity"
             android:screenOrientation="landscape"/>
 
-        <activity
-            android:name=".activity.JSActivity"
-            android:screenOrientation="landscape"/>
 
     </application>
 

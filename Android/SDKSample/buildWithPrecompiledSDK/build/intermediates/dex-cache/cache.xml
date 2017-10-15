@@ -43,7 +43,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
-        sha1="3c245040b26931217a07473c4492d58bf4cad840">
+        sha1="2c29d973acc0798ba76b70bdd9afc623606776d3">
         <dex dex="D:\Samples\Android\SDKSample\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_849abfddb4a6c57bfcf10910fe9eec7b7bceaa56\classes.dex" />
     </item>
 

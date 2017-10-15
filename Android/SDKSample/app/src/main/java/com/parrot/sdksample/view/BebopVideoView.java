@@ -49,9 +49,7 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Vector;
 
-import es.ava.aruco.CameraParameters;
-import es.ava.aruco.Marker;
-import es.ava.aruco.MarkerDetector;
+
 
 import static android.content.ContentValues.TAG;
 
@@ -161,13 +159,6 @@ public class BebopVideoView extends TextureView implements TextureView.SurfaceTe
     int count = 0;
     RotatedRect face_box;
 
-    //////////// aruco settings/////////
-    public boolean toggleAruco = false;
-    MarkerDetector MDetector;
-    Vector<Marker> Markers = new Vector<Marker>();
-    public CameraParameters CamParam;
-    Point ptc1;
-    Point ptc2;
 
     /////////////////////////////////
     //////// Calibration Settings/////
@@ -255,10 +246,6 @@ public class BebopVideoView extends TextureView implements TextureView.SurfaceTe
                 Log.e(TAG, "Failed to load cascade. Exception thrown: " + e);
             }
 
-            CamParam = new CameraParameters();
-
-            System.out.println(Environment.getExternalStorageDirectory().toString() + "/camera.yaml");
-            CamParam.readFromFile(Environment.getExternalStorageDirectory().toString() + "/camera.yaml");
 
 
             thread = new threading();

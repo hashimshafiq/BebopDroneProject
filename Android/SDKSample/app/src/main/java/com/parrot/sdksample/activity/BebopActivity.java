@@ -57,9 +57,6 @@ import java.io.File;
 import java.nio.ByteBuffer;
 import java.util.Vector;
 
-import es.ava.aruco.CameraParameters;
-import es.ava.aruco.Marker;
-import es.ava.aruco.MarkerDetector;
 
 
 public class BebopActivity extends AppCompatActivity {
