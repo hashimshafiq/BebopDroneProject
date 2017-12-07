@@ -38,8 +38,9 @@ App crashed due to __No implementation found for org.opencv.core.Mat.n_Mat()....
  | Pattern Learning|  Done           | Yes             |Perfectly Working|
  | CamShift tracking| Done           | Yes             |Perfectly Working|
  |Autonomous Rotation|Done           | Yes             |Perfectly Working|
- |Autonomous Movement|Done           | No              |   No Comment    |
+ |Autonomous Movement|Done           | Yes             |Perfectly Working|
  | Altitude Maint.  | Done           | Yes             |Perfectly working|
- | Aruco Markers    | Partially      | No              |No Comment       |
+ | Aruco Markers    | No             | No              |Removed from Proj|
+ | CNN Object Detect| Done           | Yes             |Perfectly Working|
  
  
