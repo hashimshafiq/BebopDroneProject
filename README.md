@@ -2,7 +2,7 @@
 
 # Convoy Security Using Autonomous Quadcopter
 
-![Final Video Link](https://raw.githubusercontent.com/hashimshafiq/BebopDroneProject/master/images/1.png?token=ALAYbm2CPUmt5O3wmvbyHLiuErd1bdVFks5aNCtkwA%3D%3D)
+![Final Video Link](https://github.com/hashimshafiq/BebopDroneProject/blob/master/images/1.png?raw=true)
 ### Team Memebers
 * Muhammad Hashim Shafiq (SP14-BCS-142)
 
