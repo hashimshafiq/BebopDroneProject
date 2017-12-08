@@ -52,7 +52,11 @@ App crashed due to __No implementation found for org.opencv.core.Mat.n_Mat()....
  ![GUI](https://github.com/hashimshafiq/BebopDroneProject/blob/master/images/2.png?raw=true)
  
  
- [Final Video](https://www.youtube.com/watch?v=iv0nGtHlEvM)
+ 
+ ### Drone Testing Video Link
+ 
+ 
+ [![Final Video](https://github.com/hashimshafiq/BebopDroneProject/blob/master/images/3.JPG?raw=true)](https://www.youtube.com/watch?v=iv0nGtHlEvM)
  
  
  
