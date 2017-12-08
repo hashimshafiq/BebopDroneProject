@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="com.parrot:arsdk-3.12.6">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.android/build-cache/dd44d9b5410516edf65458d29817d9a273dd69ba/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/dd44d9b5410516edf65458d29817d9a273dd69ba/output/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.parrot/arsdk/3.12.6/53e794b2a3dbca88e608d6c8d0c8034461ee44b6/arsdk-3.12.6-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

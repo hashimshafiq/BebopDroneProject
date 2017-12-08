@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="__local_jars__:D.\Samples\Android\SDKSample\app\libs\commons-lang-2.4.jar:unspecified@jar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../app/libs/commons-lang-2.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
