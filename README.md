@@ -45,6 +45,7 @@ App crashed due to __No implementation found for org.opencv.core.Mat.n_Mat()....
  | Altitude Maint.  | Done           | Yes             |Perfectly working|
  | Aruco Markers    | No             | No              |Removed from Proj|
  | CNN Object Detect| Done           | Yes             |Perfectly Working|
+ | Object Tracking  | Done           | Yes             |Perfectly Working|
  
  
  ### ANDROID APP User Interface
